@@ -1,21 +1,8 @@
-%% Obtain flow field in physical coordinates
-reread=1;
-cd '/home/bperfect/seamounts/datasets/run1';
-hisname = 'ocean_his_coarse.nc';
-avgname = 'ocean_avg.nc';
-if reread==1;
-di=30;    
-%% field variables
 u=ncread(hisname,'u',[1 1 1 1],[Inf Inf Inf Inf],[1 1 1 di]);
-
 v=ncread(hisname,'v',[1 1 1 1],[Inf Inf Inf Inf],[1 1 1 di]);
-
-%w=nc_read(filename,'w');
 rho=ncread(hisname,'rho',[1 1 1 1],[Inf Inf Inf Inf],[1 1 1 di]);
-
 zeta = ncread(hisname,'zeta',[1 1 1],[Inf Inf Inf],[1 1 1]);
 temp=ncread(hisname,'temp',[1 1 1 1],[Inf Inf Inf Inf],[1 1 1 di]);
-
 %rvort=nc_read(avgname,'rvorticity');
 %pvort=nc_read(avgname,'pvorticity');
 
@@ -26,14 +13,8 @@ s_rho=ncread(hisname,'s_rho');
 
 %% y-coordinate grid variables
 y_rho=ncread(hisname,'y_rho');
-% y_u=nc_read(hisname,'y_u');
-% y_v=nc_read(hisname,'y_v');
-% y_psi=nc_read(hisname,'y_psi');
 %%  x-coordinate grid variables
 x_rho=ncread(hisname,'x_rho');
-% x_v=nc_read(hisname,'x_v');
-% x_psi=nc_read(hisname,'x_psi');
-% x_u=nc_read(hisname,'x_u');
 %% New variables
 t=ncread(hisname,'ocean_time',[1],[Inf],[di]);
 t=t/3600/24; %convert from seconds to days
@@ -41,16 +22,10 @@ hc=ncread(hisname,'hc');
 Cs_w=ncread(hisname,'Cs_w');
 Cs_r=ncread(hisname,'Cs_r');
 
-end
+
 %% Obtain vertical coordinates in physical dimensions
 [Hz,z_w,z_r]=get_depth_Hz_ROMS(h,hc,s_rho,s_w,Cs_r,Cs_w,zeta(:,:,1),2);
 
-
-%% boundary flux balance
-[uT mom vel]=boundaryFlux(u,v,rho,temp,x_rho,y_rho,Cs_r,t);
-%% energy balance
-[E Et]=energyBalance(u,v,rho,x_rho,y_rho,z_r,t);
-pause()
 %% Choose time indices and physical vertical coordinates (meters) to interpolate
 z_query = -100:-400:-2900;
 t_query = 1:200:1700;

@@ -1,4 +1,4 @@
-function [uT mom vol] = boundaryFlux(u,v,rho,T,x_rho,y_rho,z,t)
+function [uT mom vol uT_in mom_in vol_in] = boundaryFlux(u,v,rho,T,x_rho,y_rho,z,t)
 % u,v,T should be in rho coordinates, but vertical doesn't need to be
 % corrected (as long as we're on the boundary, where topography is flat)
 u=convert2rho(u,'u');
@@ -36,13 +36,13 @@ west = u(1,:,:,:).^2.*rho(1,:,:,:);
 mom = squeeze(trapz(z,trapz(x,north+south)+trapz(y,east+west)));
 mom_in = squeeze(trapz(z,trapz(x,south)+trapz(y,west)));
 
-figure
-hold on
-plot(t,mom./mom_in)
-plot(t,vol./vol_in)
-plot(t,uT./uT_in)
-title('Flux Balance')
-ylabel('Proportion of error')
-xlabel('Timestep')
-legend('Momentum','Volume','Temperature')
+% figure
+% hold on
+% plot(t,mom./mom_in)
+% plot(t,vol./vol_in)
+% plot(t,uT./uT_in)
+% title('Flux Balance')
+% ylabel('Proportion of error')
+% xlabel('Timestep')
+% legend('Momentum','Volume','Temperature')
 

@@ -27,13 +27,13 @@ end
 
 Et = squeeze(mean(diff(y))*mean(diff(x))*trapz(trapz(E)));
 
-figure
-plot(t,E_baro)
-hold on
-plot(t,Et)
-xlabel('Time (days)')
-ylabel('Kinetic Energy')
-legend('Barotropic Prediction','Actual')
+% figure
+% plot(t,E_baro)
+% hold on
+% plot(t,Et)
+% xlabel('Time (days)')
+% ylabel('Kinetic Energy')
+% legend('Barotropic Prediction','Actual')
 
 
 
